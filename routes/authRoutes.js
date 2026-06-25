@@ -83,7 +83,7 @@ router.post('/markattendance', async (req, res) => {
         const attendance =
             await Attendance.create({
 
-                Date,
+              //  Date,
                 mobile,
                 status,
                    details,

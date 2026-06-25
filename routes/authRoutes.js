@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
 
     try {
 
-        const { name, mobile, password } = req.body;
+        const { name, mobile, password ,userType} = req.body;
 
         const existingUser =
             await User.findOne({ mobile });
@@ -35,7 +35,8 @@ router.post('/register', async (req, res) => {
 
                 name,
                 mobile,
-                password: hashedPassword
+                password: hashedPassword,
+                userType
 
             });
 

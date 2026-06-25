@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+const Attendance = require('../models/attendanceRecord');
 
 const router = express.Router();
 
@@ -35,8 +36,9 @@ router.post('/register', async (req, res) => {
 
                 name,
                 mobile,
+                   userType,
                 password: hashedPassword,
-                userType
+             
 
             });
 
@@ -46,6 +48,53 @@ router.post('/register', async (req, res) => {
             message: 'User Registered',
 
             data: user
+
+        });
+
+    } catch (e) {
+
+        res.status(500).json({
+            error: e.message
+        });
+
+    }
+
+});
+router.post('/markattendance', async (req, res) => {
+
+    try {
+
+        const { mobile, status, details } = req.body;
+
+        const existingUser =
+            await User.findOne({ mobile });
+
+        if (!existingUser) {
+
+            return res.status(400).json({
+                status: false,
+                message: 'User Not Available'
+            });
+
+        }
+
+ 
+
+        const attendance =
+            await Attendance.create({
+
+                Date,
+                mobile,
+                status,
+                   details,
+            });
+
+        res.json({
+
+            status: true,
+            message: 'Attendance Marked Successfully',
+
+            data: attendance
 
         });
 

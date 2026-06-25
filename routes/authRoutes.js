@@ -79,7 +79,8 @@ router.post('/updateattendance', async (req, res) => {
         }
 
  
-  const attendance = await Attendance.updateOne(
+  //const attendance = await Attendance.updateOne(
+    const attendance = await Attendance.updateMany(
             { mobile: mobile }, // WHERE mobile = mobile
             {
                 $set: {
@@ -93,7 +94,7 @@ router.post('/updateattendance', async (req, res) => {
         res.json({
 
             status: true,
-            message: 'Attendance Marked Successfully',
+            message: 'Attendance Updated Successfully',
 
             data: attendance
 

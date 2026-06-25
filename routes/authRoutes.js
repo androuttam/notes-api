@@ -60,7 +60,7 @@ router.post('/register', async (req, res) => {
     }
 
 });
-router.post('/markattendance', async (req, res) => {
+router.post('/updateattendance', async (req, res) => {
 
     try {
 
@@ -79,15 +79,16 @@ router.post('/markattendance', async (req, res) => {
         }
 
  
-
-        const attendance =
-            await Attendance.create({
-
-              //  Date,
-                mobile,
-                status,
-                   details,
-            });
+  const attendance = await Attendance.updateOne(
+            { mobile: mobile }, // WHERE mobile = mobile
+            {
+                $set: {
+                    status: status,
+                    details: details
+                }
+            }
+        );
+     
 
         res.json({
 
